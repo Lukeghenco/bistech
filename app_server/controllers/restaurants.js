@@ -1,12 +1,12 @@
 /* GET 'home' page */
 module.exports.restaurantList = function(req, res){
-  res.render('index', { title: 'Home' });
+  res.render('restaurants-list', { title: 'Home' });
 };
 
 
 /* GET 'Restaurant Info' page */
 module.exports.restaurantInfo = function(req, res){
-  res.render('index', { title: 'Restaurant Info' });
+  res.render('restaurant-info', { title: 'Restaurant Info' });
 };
 
 
