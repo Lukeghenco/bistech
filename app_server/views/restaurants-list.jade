@@ -1,49 +1,27 @@
+include __includes/sharedHTMLfunctions
+
 extends layout
 
 block content
   #banner.page-header
     .row
       .col-lg-6
-        h1 BisTech
-          small &nbsp;Find restaurants near you!
+        h1= pageHeader.title
+          small &nbsp;#{pageHeader.strapline}
     .row
       .col-xs-12.col-sm-8
         .row.list-group
-          .col-xs-12.list-group-item
-            h4
-              a(href='/restaurant') Luna Grill
-              small &nbsp;
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star-empty
-                span.glyphicon.glyphicon-star-empty
-              snap.badge.pull-right.badge-default 100m
-            p.address 2345 El Camino Real, Carlsbad, CA 92045
-            p
-              span.label.label-warning Delicious Gyros
-              | &nbsp;
-              span.label.label-warning Sweet Baklavah
-              | &nbsp;
-              span.label.label-warning Craft Beers
-              | &nbsp;
-          .col-xs-12.list-group-item
-            h4
-              a(href='/restaurant') Applebees
-              small &nbsp;
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star
-                span.glyphicon.glyphicon-star-empty
-                span.glyphicon.glyphicon-star-empty
-                span.glyphicon.glyphicon-star-empty
-              snap.badge.pull-right.badge-default 100m
-            p.address 2345 El Camino Real, Carlsbad, CA 92045
-            p
-              span.label.label-warning $8 meals
-              | &nbsp;
-              span.label.label-warning Food-To-Go
-              | &nbsp;
-              span.label.label-warning Wide Selection
-              | &nbsp;
+          each restaurant in restaurants
+            .col-xs-12.list-group-item
+              h4
+                a(href="/restaurant")= restaurant.name
+                small &nbsp;
+                  +outputRating(restaurant.rating)
+                span.badge.pull-right.badge-default= restaurant.distance
+              p.address= restaurant.address
+              p 
+                each facility in restaurant.facilities
+                  span.label.label-warning= facility
+                  &nbsp;
       .col-xs-12.col-sm-4
-        p.lead Are you looking for yummy eats near you. BisTech helps you find the food you are craving.
+        p.lead= sidebar

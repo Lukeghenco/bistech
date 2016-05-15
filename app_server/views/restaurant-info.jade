@@ -1,49 +1,44 @@
+include __includes/sharedHTMLfunctions
+
 extends layout
 
 block content
   .row.page-header
     .col-lg-12
-      h1 Luna Grill
+      h1= pageHeader.title
   .row
     .col-xs-12.col-md-9
       .row
         .col-xs-12.col-sm-6
           p.rating Average Rating: &nbsp;
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-empty
-          p Address: &nbsp;2345 El Camino Real, Carlsbad, CA 92045
+            +outputRating(location.rating)
+          p Address: #{location.address}
             .panel.panel-primary
               .panel-heading
                 h2.panel-title Opening hours
               .panel-body
-                p Monday - Friday : 10:00am - 9:00pm
-                p Saturday : 10:00am - 10:00pm
-                p Sunday : 11:00am - 9:00pm
+                each time in location.openingTimes
+                  p
+                    | #{time.days}:
+                    if time.closed 
+                      |  closed 
+                    else 
+                      |  #{time.opening} - #{time.closing}
             .panel.panel-primary
               .panel-heading
                 h2.panel-title Facilities
               .panel-body
-                span.label.label-warning
-                  span.glyphicon.glyphicon-ok
-                  | &nbsp;Gyros
-                | &nbsp;
-                span.label.label-warning
-                  span.glyphicon.glyphicon-ok
-                  | &nbsp;Baklava
-                | &nbsp;
-                span.label.label-warning
-                  span.glyphicon.glyphicon-ok
-                  | &nbsp;Mahi-Mahi
-                | &nbsp;
+                each facility in location.facilities
+                  span.label.label-warning
+                    span.glyphicon.glyphicon-ok
+                    | &nbsp;#{facility}
+                  | &nbsp;
         .col-xs-12.col-sm-6.location-map
           .panel.panel-primary
             .panel-heading
               h2.panel-title Location map
             .panel-body
-              img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=51.455041,- 0.9690884&zoom=17&size=400x350&sensor=false&markers=51.455041,-0.9690884&scale=2')
+              img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=#{location.coords.lat},#{location.coords.lng}&zoom=17&size=400x350&sensor=false&markers=#{location.coords.lat},#{location.coords.lng}&scale=2')
       .row
         .col-xs-12
           .panel.panel-primary.review-panel
@@ -51,32 +46,17 @@ block content
               a.btn.btn-default.pull-right(href='/restaurant/review/new') Add Review
               h2.panel-title Customer Reviews
             .panel-body.review-container
-              .row
-                .review
-                  .well.well-sm.review-header
-                    span.rating
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                    span.reviewAuhor &nbsp;Luke Ghenco
-                    small.reviewTimestamp &nbsp; - 14 May 2016
-                  .col-xs-12
-                    p I love coming here for their Gyros and Pistachio Baklava
-              .row
-                .review
-                  .well.well-sm.review-header
-                    span.rating
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star-empty
-                    span.reviewAuthor &nbsp;Summer Felcyn
-                    small.reviewTimestamp &nbsp;- 10 May 2016
-                  .col-xs-12
-                    p The food was great, but I think country music and Greek food is not the right fit.
+              each review in location.reviews
+                .row
+                  .review
+                    .well.well-sm.review-header
+                      span.rating
+                        +outputRating(review.rating)
+                      span.reviewAuhor &nbsp;#{review.author}
+                      small.reviewTimestamp &nbsp; - #{review.timestamp}
+                    .col-xs-12
+                      p= review.reviewText
+              
     .col-xs-12.col-md-3
-      p.lead Luna Grill is in your area
-      p Please leave a review if you love or hate it.
+      p.lead #{location.name} #{sidebar.context}
+      p= sidebar.callToAction
