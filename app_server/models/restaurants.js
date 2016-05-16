@@ -23,3 +23,5 @@ var restaurantSchema = new mongoose.Schema({
   openingTimes: [openingTimeSchema],
   reviews: [reviewSchema]
 });
+
+mongoose.model('Restaurant', restaurantSchema);

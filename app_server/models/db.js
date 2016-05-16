@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
-var dbURI = 'mongodb://localhost/Loc8r';
+var dbURI = 'mongodb://localhost/BisTech';
+if (process.env.NODE_ENV === 'production') {
+  console.log(process.env.MONGOLAB_URI);
+  dbURI = process.env.MONGOLAB_URI;
+};
 mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function(){
