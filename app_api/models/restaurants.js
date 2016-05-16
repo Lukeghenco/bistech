@@ -9,9 +9,17 @@ var openingTimeSchema = new mongoose.Schema({
 
 var reviewSchema = new mongoose.Schema({
   author: String,
-  rating: {type: Number, required: true, min: 0, max: 5},
+  rating: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 5
+  },
   reviewText: String,
-  createdOn: {type: Date, "default": Date.now}
+  createdOn: {
+    type: Date,
+    "default": Date.now
+  }
 });
 
 var restaurantSchema = new mongoose.Schema({
@@ -19,7 +27,7 @@ var restaurantSchema = new mongoose.Schema({
   address: String,
   rating: {type: Number, "default": 0, min: 0, max: 5},
   facilities: [String],
-  coords: {type: [Number], index: '2dsphere'},
+  loc: {type: "Point", coordinates: [Number]},
   openingTimes: [openingTimeSchema],
   reviews: [reviewSchema]
 });
