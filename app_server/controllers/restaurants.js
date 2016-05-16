@@ -10,7 +10,7 @@ module.exports.restaurantList = function(req, res){
     restaurants: [
       {
         name: 'Luna Grill',
-        address: '2400 El Camino Real, Carlsbad, CA 93243',
+        address: "The Shoppes at Carlsbad, 2501 El Camino Real #240, Carlsbad, CA 92008",
         rating: 4,
         facilities: ['Gyros', 'Pistachio Baklava', 'Craft Beer'],
         distance: '4mi'
@@ -41,7 +41,7 @@ module.exports.restaurantInfo = function(req, res){
       address: '2345 El Camino Real, Carlsbad, CA 92045',
       rating: 4,
       facilities: ['Gyros', 'Pistacio Baklava', 'Craft Beer'],
-      coords: {lat: 33.182176, lng: -117.31321},
+      coords: {lat: 33.177879, lng: -117.3310608},
       openingTimes: [
         {
           days: 'Monday - Friday',
@@ -85,6 +85,6 @@ module.exports.restaurantInfo = function(req, res){
 module.exports.addReview = function(req, res){
   res.render('restaurant-review-form', {
     title: 'Review Luna Grill on BisTech',
-    pageHeader: { title: 'Review Luna Grill'} 
+    pageHeader: { title: 'Review Luna Grill'}
   });
 };
