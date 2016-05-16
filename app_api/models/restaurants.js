@@ -27,7 +27,7 @@ var restaurantSchema = new mongoose.Schema({
   address: String,
   rating: {type: Number, "default": 0, min: 0, max: 5},
   facilities: [String],
-  loc: {type: "Point", coordinates: [Number]},
+  loc: {type: String, coordinates: [Number]},
   openingTimes: [openingTimeSchema],
   reviews: [reviewSchema]
 });
